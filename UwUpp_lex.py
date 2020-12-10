@@ -13,7 +13,8 @@ reserved = {
     'nuzzels'      : 'NUZZELS',
     'wetuwn'       : 'WETUWN',
     'decwawe'      : 'DECWAWE',
-    'nowt'         : 'NOWT'
+    'not'          : 'NOT',
+    'wisten'       : 'WISTEN'
 }
 
 literals = [',',';','=','(',')','{','}']
@@ -25,12 +26,12 @@ tokens = [
           ] + list(reserved.values())
 
 t_PLUS    = r'pwus'
-t_MINUS   = r'miwus'
-t_TIMES   = r'TWIMES'
-t_DIVIDE  = r'DIWIDE'
-t_GT      = r'GWEATEW TWAN'
-t_EQ      = r'EQWALL TWOO'
-t_LT      = r'WESS TWAN'
+t_MINUS   = r'minwus'
+t_TIMES   = r'twimes'
+t_DIVIDE  = r'diwide'
+t_GT      = r'gweatew twan'
+t_EQ      = r'eqwall twoo'
+t_LT      = r'wess twan'
 
 t_ignore = ' \t'
 

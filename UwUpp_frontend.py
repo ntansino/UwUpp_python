@@ -3,15 +3,16 @@
 from ply import yacc
 from UwUpp_lex import tokens, lexer, is_ID
 from UwUpp_state import state
-
+#Testing
+from grammar_stuff import dump_AST
 #########################################################################
 # set precedence and associativity
 # NOTE: all operators need to have tokens
 #       so that we can put them into the precedence table
 precedence = (
-              ('left', 'GT', 'EQ', 'LT'),
-              ('left', 'PLUS', 'MINUS'),
-              ('left', 'TIMES', 'DIVIDE'),
+              ('left', 'GWEATEW_TWAN', 'EQWALL_TWOO', 'WESS_TWAN'),
+              ('left', 'PWUS', 'MINWUS'),
+              ('left', 'TWIMES', 'DIWIDE'),
               ('right', 'UMINUS', 'NOT')
              )
 
@@ -41,7 +42,6 @@ def p_stmt(p):
     stmt : DECWAWE '*' ID '(' opt_formal_args ')' '*' stmt
          | DECWAWE ID opt_init
          | ID '=' exp
-         | WISTEN ID 
          | NUZZELS exp 
          | ID '(' opt_actual_args ')' 
          | WETUWN opt_exp 
@@ -55,16 +55,14 @@ def p_stmt(p):
         p[0] = ('declare', p[2], p[3])
     elif is_ID(p[1]) and p[2] == '=':
         p[0] = ('assign', p[1], p[3])
-    elif p[1] == 'wisten':
-        p[0] = ('input', p[2])
     elif p[1] == 'nuzzels':
         p[0] = ('print', p[2])
     elif is_ID(p[1]) and p[2] == '(':
         p[0] = ('callstmt', p[1], p[3])
     elif p[1] == 'wetuwn':
         p[0] = ('return', p[2])
-    elif p[1] == 'OwO':
-        p[0] = ('OwO', p[3], p[5], p[6])
+    elif p[1] == 'owo':
+        p[0] = ('owo', p[3], p[5])
     elif p[1] == '*' and p[2] == 'notices':
         p[0] = ('if', p[3], p[5], p[6], p[7])
     elif p[1] == '{':
@@ -143,13 +141,13 @@ def p_opt_ewse(p):
 #########################################################################
 def p_binop_exp(p):
     '''
-    exp : exp PLUS exp
-        | exp MINUS exp
-        | exp TIMES exp
-        | exp DIVIDE exp
-        | exp GT exp
-        | exp EQ exp
-        | exp LT exp
+    exp : exp PWUS exp
+        | exp MINWUS exp
+        | exp TWIMES exp
+        | exp DIWIDE exp
+        | exp GWEATEW_TWAN exp
+        | exp EQWALL_TWOO exp
+        | exp WESS_TWAN exp
     '''
     p[0] = (p[2], p[1], p[3])
 
@@ -159,6 +157,20 @@ def p_integer_exp(p):
     exp : INTEGER
     '''
     p[0] = ('integer', int(p[1]))
+
+#########################################################################
+def p_wisten_exp(p):
+    '''
+    exp : WISTEN
+    '''
+    p[0] = ('wisten', p[1])
+
+#########################################################################
+def p_string_exp(p):
+    '''
+    exp : '"' STRING '"'
+    '''
+    p[0] = ('string', p[1])
 
 #########################################################################
 def p_id_exp(p):
@@ -184,7 +196,7 @@ def p_paren_exp(p):
 #########################################################################
 def p_uminus_exp(p):
     '''
-    exp : MINUS exp %prec UMINUS
+    exp : MINWUS exp %prec UMINUS
     '''
     p[0] = ('uminus', p[2])
 
@@ -211,4 +223,152 @@ def p_error(t):
 #########################################################################
 parser = yacc.yacc(debug=False,tabmodule='UwUppparsetab')
 
-parser.parse('''nuzzels(10)''')
+""" parser.parse('''nuzzels(10)''')
+dump_AST(state.AST) """
+
+add = \
+    """
+    decwawe *add(a)* {
+        decwawe x = 1
+        decwawe y = x pwus a
+        wetuwn y
+    }
+    nuzzels(add(5))
+    """
+
+""" parser.parse(add)
+dump_AST(state.AST) """
+
+binop = \
+    """
+    decwawe x = 10
+    decwawe y = 122
+    decwawe z = x pwus y
+    nuzzels(z)
+
+    decwawe a = 150
+    decwawe b = 50
+    decwawe c = a minwus b
+    nuzzels(c)
+
+    decwawe d = 10
+    decwawe e = 5
+    decwawe f = d twimes e
+    nuzzels(f)
+
+    decwawe m = 1000
+    decwawe n = 20
+    decwawe o = m diwide n
+    nuzzels(o)
+    """
+""" parser.parse(binop)
+dump_AST(state.AST) """
+
+p_4 = \
+    """
+    decwawe x = 1000
+    OwO *notices 1 wess_twan x *
+        nuzzels(x)
+        x = x minwus 1
+        stawp
+    """
+""" parser.parse(p_4)
+dump_AST(state.AST) """
+
+#'*' NOTICES exp '*' stmt opt_ewse STAWP
+notices = \
+    """
+    decwawe x = 1000
+    decwawe y = 54321
+    * notices x wess_twan y *
+        nuzzels(x)
+    ewse
+        nuzzles(y)
+        stawp
+    """
+""" parser.parse(notices)
+dump_AST(state.AST) """
+
+OwO = \
+    """
+    decwawe x = 1000
+    decwawe y = 54321
+
+    owo * x wess_twan y *{
+        nuzzels(x)
+        x = x twimes 2
+        nuzzels(y)}
+        stawp
+    """
+
+""" parser.parse(OwO)
+dump_AST(state.AST) """
+
+str_test = \
+    """
+    nuzzels("Hello world")
+    """
+""" parser.parse(str_test)
+dump_AST(state.AST) """
+
+test_wisten = \
+    """
+    decwawe input
+    input = wisten
+    nuzzels(input)
+    """
+""" parser.parse(test_wisten)
+dump_AST(state.AST) """
+
+test_all = \
+    """
+    decwawe input = wisten
+    decwawe *math(a)* {
+        decwawe x = 10
+        decwawe y = 122
+        decwawe z = x pwus y
+        nuzzels(z)
+
+        decwawe b = 50
+        decwawe c = a minwus b
+        nuzzels(c)
+
+        decwawe d = 10
+        decwawe e = 5
+        decwawe f = d twimes e
+        nuzzels(f)
+
+        decwawe m = 1000
+        decwawe n = 20
+        decwawe o = m diwide n
+        wetuwn o
+    }
+    math(input)
+    decwawe y = 122
+    * notices input wess_twan y *
+        nuzzels(input)
+    ewse
+        nuzzels(y)
+    stawp
+
+    decwawe x = 200
+    owo * x gweatew_twan y *{
+        nuzzels(x)
+        x = x diwide 2
+        nuzzels(y)
+        }
+        stawp
+    
+    * notices 10 eqwall_twoo 10 *
+        nuzzels(10)
+        stawp
+    
+    * notices 20 eqwall_twoo 10 *
+        nuzzels(10)
+    ewse
+        nuzzels(20)
+        stawp
+    """
+
+parser.parse(test_all)
+dump_AST(state.AST)

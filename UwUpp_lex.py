@@ -8,30 +8,28 @@ reserved = {
     'nyaa'         : 'NYAA',
     'notices'      : 'NOTICES',
     'ewse'         : 'EWSE',
-    'OwO'          : 'OWO',
+    'owo'          : 'OWO',
+    'while'        : 'WHILE',
     'stawp'        : 'STAWP',
     'nuzzels'      : 'NUZZELS',
     'wetuwn'       : 'WETUWN',
     'decwawe'      : 'DECWAWE',
     'not'          : 'NOT',
-    'wisten'       : 'WISTEN'
+    'wisten'       : 'WISTEN',
+    'pwus'         : 'PWUS',
+    'minwus'       : 'MINWUS',
+    'twimes'       : 'TWIMES',
+    'diwide'       : 'DIWIDE',
+    'gweatew_twan' : 'GWEATEW_TWAN',
+    'eqwall_twoo'  : 'EQWALL_TWOO',
+    'wess_twan'    : 'WESS_TWAN'
 }
 
-literals = [',',';','=','(',')','{','}']
+literals = [',',';','=','(',')','{','}','*','\"']
 
 tokens = [
-          'PLUS','MINUS','TIMES','DIVIDE',
-          'GT', 'EQ','LT', 
-          'INTEGER','ID',
+          'INTEGER','ID', 'STRING'
           ] + list(reserved.values())
-
-t_PLUS    = r'pwus'
-t_MINUS   = r'minwus'
-t_TIMES   = r'twimes'
-t_DIVIDE  = r'diwide'
-t_GT      = r'gweatew twan'
-t_EQ      = r'eqwall twoo'
-t_LT      = r'wess twan'
 
 t_ignore = ' \t'
 

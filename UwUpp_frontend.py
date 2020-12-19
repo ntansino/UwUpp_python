@@ -50,21 +50,21 @@ def p_stmt(p):
          | '{' stmt_list '}'
     '''
     if p[1] == 'decwawe' and p[2] == '*' and p[4] == '(':
-        p[0] = ('fundecl', p[3], p[5], p[8])
+        p[0] = ('fundecw', p[3], p[5], p[8])
     elif p[1] == 'decwawe':
-        p[0] = ('declare', p[2], p[3])
+        p[0] = ('decwawe', p[2], p[3])
     elif is_ID(p[1]) and p[2] == '=':
         p[0] = ('assign', p[1], p[3])
     elif p[1] == 'nuzzels':
-        p[0] = ('print', p[2])
+        p[0] = ('nuzzels', p[2])
     elif is_ID(p[1]) and p[2] == '(':
         p[0] = ('callstmt', p[1], p[3])
     elif p[1] == 'wetuwn':
-        p[0] = ('return', p[2])
+        p[0] = ('wetuwn', p[2])
     elif p[1] == 'owo':
-        p[0] = ('owo', p[3], p[5])
+        p[0] = ('owo', p[3], p[5], p[6])
     elif p[1] == '*' and p[2] == 'notices':
-        p[0] = ('if', p[3], p[5], p[6], p[7])
+        p[0] = ('notices', p[3], p[5], p[6], p[7])
     elif p[1] == '{':
         p[0] = ('block', p[2])
     else:
@@ -163,7 +163,7 @@ def p_wisten_exp(p):
     '''
     exp : WISTEN
     '''
-    p[0] = ('wisten', p[1])
+    p[0] = (p[1], )
 
 #########################################################################
 def p_string_exp(p):

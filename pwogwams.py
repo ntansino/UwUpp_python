@@ -1,3 +1,10 @@
+assign = \
+    """
+    UwUBasic Variable assignment and print
+    decwawe x = 5
+    nuzzels(x)
+    """
+
 add = \
     """
     decwawe *add(a)* {

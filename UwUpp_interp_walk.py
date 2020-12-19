@@ -1,4 +1,4 @@
-# A tree walker to interpret Cuppa3 programs
+# A tree walker to interpret UwU++ programs
 
 from UwUpp_state import state
 from grammar_stuff import assert_match

@@ -4,12 +4,9 @@ import re
 from ply import lex
 
 reserved = {
-    'iws'          : 'IWS',
-    'nyaa'         : 'NYAA',
     'notices'      : 'NOTICES',
     'ewse'         : 'EWSE',
     'owo'          : 'OWO',
-    'while'        : 'WHILE',
     'stawp'        : 'STAWP',
     'nuzzels'      : 'NUZZELS',
     'wetuwn'       : 'WETUWN',
@@ -27,8 +24,7 @@ reserved = {
 
 literals = [',',';','=','(',')','{','}','*','\"']
 
-tokens = [
-          'INTEGER','ID', 'STRING'
+tokens = [ 'INTEGER','ID', 'STRING'
           ] + list(reserved.values())
 
 t_ignore = ' \t'
@@ -53,7 +49,7 @@ def t_INTEGER(t):
     return t
 
 def t_COMMENT(t):
-    'UwU'
+    r'/UwU.*'
     pass
 
 def t_NEWLINE(t):

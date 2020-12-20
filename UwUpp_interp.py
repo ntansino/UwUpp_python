@@ -21,6 +21,7 @@ def interp(input_stream):
     walk(state.AST)
 
 if __name__ == "__main__":
+    
     # parse command line args
     aparser = ArgumentParser()
     aparser.add_argument('input')
@@ -33,4 +34,3 @@ if __name__ == "__main__":
 
     # execute interpreter
     interp(input_stream=input_stream)
-
